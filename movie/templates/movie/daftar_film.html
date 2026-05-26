@@ -1,0 +1,533 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Film Bioskop</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #020617, #0f172a);
+            color: #ffffff;
+        }
+
+        .navbar {
+            width: 100%;
+            padding: 22px 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(2, 6, 23, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            color: #fbbf24;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .logo span {
+            display: block;
+            color: #ffffff;
+            font-size: 14px;
+            letter-spacing: 4px;
+            margin-top: 6px;
+        }
+
+        .menu a {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 15px;
+        }
+
+        .menu a:hover,
+        .menu .active {
+            color: #f5b942;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 45px 0;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero-text p {
+            color: #cbd5e1;
+            font-size: 17px;
+            line-height: 1.6;
+            max-width: 550px;
+        }
+
+        .search-box {
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            width: 320px;
+            padding: 13px 18px;
+            border-radius: 30px;
+            border: 1px solid #334155;
+            background-color: #020617;
+            color: white;
+            outline: none;
+        }
+
+        .search-box button {
+            padding: 13px 22px;
+            border-radius: 30px;
+            border: none;
+            background-color: #f5b942;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .filter {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter a {
+            padding: 10px 18px;
+            border-radius: 20px;
+            background-color: #111827;
+            border: 1px solid #334155;
+            color: #cbd5e1;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .filter a:hover {
+            border-color: #f5b942;
+            color: #f5b942;
+        }
+
+        .filter .active {
+            background-color: #f5b942;
+            color: #111827;
+            font-weight: bold;
+            border-color: #f5b942;
+        }
+
+
+        .film-card {
+            background-color: #0f172a;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+            transition: 0.3s;
+        }
+
+        .film-card:hover {
+            transform: translateY(-8px);
+            border-color: #f5b942;
+        }
+
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #f5b942;
+            color: #111827;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .rating {
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            background-color: rgba(15, 23, 42, 0.9);
+            color: #f5b942;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .no-poster {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #94a3b8;
+            font-size: 18px;
+        }
+
+        .film-content {
+            padding: 22px;
+        }
+
+        .film-content h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .genre {
+            display: inline-block;
+            background-color: rgba(245, 185, 66, 0.15);
+            color: #f5b942;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .durasi {
+            color: #cbd5e1;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .sinopsis {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 65px;
+            margin-bottom: 20px;
+        }
+
+        .btn-jadwal {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 13px;
+            border-radius: 12px;
+            background-color: #f5b942;
+            color: #111827;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-jadwal:hover {
+            background-color: #ffd166;
+        }
+
+        .empty {
+            text-align: center;
+            color: #cbd5e1;
+            font-size: 18px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .menu a {
+                margin: 0 10px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 40px 25px;
+                text-align: center;
+            }
+
+            .hero-text {
+                max-width: 100%;
+            }
+
+            .hero-text h1 {
+                font-size: 36px;
+            }
+
+            .search-box {
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .hero-image {
+                display: none;
+            }
+        }
+
+
+            .hero {
+                position: relative;
+                overflow: hidden;
+                min-height: 300px;
+                margin-bottom: 28px;
+                padding: 42px 55px;
+                border-radius: 25px;
+                display: flex;
+                align-items: center;
+                background: linear-gradient(120deg, #111827, #172033, #0f172a);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            }
+
+            .hero-text {
+                position: relative;
+                z-index: 3;
+                max-width: 720px;
+            }
+
+            .hero-image {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 58%;
+                height: 100%;
+                overflow: hidden;
+                z-index: 1;
+            }
+
+            .hero-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: left 35%;
+                display: block;
+                opacity: 0.75;
+                filter: brightness(0.75);
+            }
+
+            .hero::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    90deg,
+                    #111827 0%,
+                    rgba(17, 24, 39, 0.95) 34%,
+                    rgba(17, 24, 39, 0.65) 55%,
+                    rgba(17, 24, 39, 0.25) 100%
+                );
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            .film-grid {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 28px;
+                align-items: stretch;
+            }
+
+            .film-card {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .poster-box {
+                width: 100%;
+                height: 390px;
+                flex-shrink: 0;
+                overflow: hidden;
+            }
+
+            .poster-box img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+
+            .film-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                padding: 22px;
+            }
+
+    
+            .film-content h2 {
+                min-height: 58px;
+            }
+
+           .sinopsis {
+                color: #94a3b8;
+                font-size: 14px;
+                line-height: 1.6;
+                min-height: 90px;
+                max-height: 90px;
+                overflow: hidden;
+                margin-bottom: 20px;
+            }
+
+         
+            .btn-jadwal {
+                margin-top: auto;
+            }
+
+        
+            @media (max-width: 1200px) {
+                .film-grid {
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                }
+            }
+
+            @media (max-width: 900px) {
+                .film-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+
+            @media (max-width: 600px) {
+                .film-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+        
+            .poster-box {
+                position: relative;
+            }
+
+            .badge {
+                z-index: 5;
+            }
+
+            .rating {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                bottom: auto;
+                z-index: 5;
+            }
+
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            NESA
+            <span>CINEMA</span>
+        </div>
+
+        <div class="menu">
+            <a href="#" class="active">Beranda</a>
+            <a href="#">Film</a>
+            <a href="#">Tentang Kami</a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Daftar Film Bioskop</h1>
+                <p>
+                    Temukan film terbaru dan terbaik yang sedang tayang di bioskop.
+                    Pilih film favoritmu, lihat jadwal tayang, lalu pesan tiket dengan mudah.
+                </p>
+
+                <div class="search-box">
+                    <input type="text" placeholder="Cari film, genre, atau jadwal...">
+                    <button>Cari</button>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <img src="{% static 'movie/images/cinema-hero.png' %}" alt="Cinema Hero">
+            </div>
+        </section>
+
+
+        <div class="filter">
+            <a href="{% url 'movie:daftar_film' %}" class="{% if not genre_aktif %}active{% endif %}">
+                Semua Film
+            </a>
+
+            <a href="?genre=Drama" class="{% if genre_aktif == 'Drama' %}active{% endif %}">
+                Drama
+            </a>
+
+            <a href="?genre=Action" class="{% if genre_aktif == 'Action' %}active{% endif %}">
+                Action
+            </a>
+
+            <a href="?genre=Comedy" class="{% if genre_aktif == 'Comedy' %}active{% endif %}">
+                Comedy
+            </a>
+
+            <a href="?genre=Horor" class="{% if genre_aktif == 'Horor' %}active{% endif %}">
+                Horor
+            </a>
+
+            <a href="?genre=Romance" class="{% if genre_aktif == 'Romance' %}active{% endif %}">
+                Romance
+            </a>
+        </div>
+
+        <div class="film-grid">
+
+            {% for film in daftar_film %}
+            <div class="film-card">
+
+                <div class="poster-box">
+                    {% if film.poster %}
+                        <img src="{{ film.poster.url }}" alt="{{ film.judul }}">
+                    {% else %}
+                        <div class="no-poster">Poster belum tersedia</div>
+                    {% endif %}
+
+                    <div class="badge">SEDANG TAYANG</div>
+                    <div class="rating">★ 8.0</div>
+                </div>
+
+                <div class="film-content">
+                    <h2>{{ film.judul }}</h2>
+
+                    <span class="genre">{{ film.genre }}</span>
+
+                    <p class="durasi">⏱ {{ film.durasi }} menit</p>
+
+                    <p class="sinopsis">
+                        {{ film.sinopsis|truncatewords:18 }}
+                    </p>
+
+                    <a href="{% url 'movie:detail_film' film.id %}" class="btn-jadwal">
+                        Lihat Jadwal
+                    </a>
+                </div>
+
+            </div>
+            {% empty %}
+                <p class="empty">Belum ada film.</p>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</body>
+</html>

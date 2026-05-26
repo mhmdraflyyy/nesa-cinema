@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detail Tiket</title>
+</head>
+<body>
+    <h1>Tiket Berhasil Dibuat</h1>
+
+    <p>Kode Booking: {{ tiket.kode_booking }}</p>
+    <p>Nama Pemesan: {{ tiket.nama_pemesan }}</p>
+    <p>Film: {{ tiket.jadwal.film.judul }}</p>
+    <p>Studio: {{ tiket.jadwal.studio }}</p>
+    <p>Tanggal: {{ tiket.jadwal.tanggal }}</p>
+    <p>Jam: {{ tiket.jadwal.jam }}</p>
+    <p>Jenis Tiket: {{ tiket.jenis_tiket }}</p>
+    <p>Jumlah Kursi: {{ tiket.jumlah_kursi }}</p>
+    <p>Total Harga: Rp{{ tiket.total_harga }}</p>
+    <p>Status: {{ tiket.status }}</p>
+
+    <h3>Kursi:</h3>
+    {% for kursi in tiket.kursi.all %}
+        <p>{{ kursi.nomor_kursi }}</p>
+    {% endfor %}
+
+    <a href="{% url 'movie:daftar_film' %}">Kembali ke daftar film</a>
+</body>
+</html>

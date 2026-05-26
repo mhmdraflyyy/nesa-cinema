@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pesan Tiket</title>
+</head>
+<body>
+    <h1>Pesan Tiket</h1>
+
+    <h2>{{ jadwal.film.judul }}</h2>
+    <p>Studio: {{ jadwal.studio }}</p>
+    <p>Tanggal: {{ jadwal.tanggal }}</p>
+    <p>Jam: {{ jadwal.jam }}</p>
+    <p>Harga dasar: Rp{{ jadwal.harga_dasar }}</p>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Nama Pemesan:</label><br>
+        <input type="text" name="nama_pemesan" required><br><br>
+
+        <label>Jenis Tiket:</label><br>
+        <select name="jenis_tiket">
+            <option value="reguler">Reguler</option>
+            <option value="pelajar">Pelajar</option>
+            <option value="weekend">Weekend</option>
+        </select><br><br>
+
+        <label>Pilih Kursi:</label><br>
+        {% for kursi in daftar_kursi %}
+            <input type="checkbox" name="kursi" value="{{ kursi.id }}">
+            {{ kursi.nomor_kursi }}
+            <br>
+        {% empty %}
+            <p>Tidak ada kursi tersedia.</p>
+        {% endfor %}
+
+        <br>
+        <button type="submit">Pesan Sekarang</button>
+    </form>
+
+    <br>
+    <a href="{% url 'movie:detail_film' jadwal.film.id %}">Kembali</a>
+</body>
+</html>
