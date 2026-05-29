@@ -14,11 +14,11 @@ def pesan_tiket(request, jadwal_id):
         status='TERSEDIA'
     )
 
-    rows = ['A','B','C','D','E','F','G','H','I','J']
+    rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 
-    left_cols = [1,2,3,4,5]
+    left_cols = [1, 2, 3, 4, 5]
 
-    right_cols = [6,7,8,9,10]
+    right_cols = [6, 7, 8, 9, 10]
 
     if request.method == 'POST':
 
@@ -28,8 +28,13 @@ def pesan_tiket(request, jadwal_id):
 
         kursi_ids = request.POST.getlist('kursi')
 
-        kursi_dipilih = Kursi.objects.filter(nomor_kursi__in=kursi_ids)
-        
+        kursi_ids = list(dict.fromkeys(kursi_ids))
+
+        kursi_dipilih = Kursi.objects.filter(
+            nomor_kursi__in=kursi_ids,
+            studio=jadwal.studio,
+            status='TERSEDIA'
+        )
 
         kode_booking = f"BK{random.randint(1000, 9999)}"
 
