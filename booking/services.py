@@ -45,10 +45,21 @@ class TiketService:
     @staticmethod
     @transaction.atomic
     def buat_tiket(kode_booking, nama_pemesan, jadwal, daftar_kursi, jenis_tiket):
+        daftar_kursi = list(daftar_kursi)
         jumlah_kursi = len(daftar_kursi)
 
         if jumlah_kursi <= 0:
             raise ValueError("Pilih minimal 1 kursi")
+
+        
+        kursi_sudah_dipesan = Tiket.objects.filter(
+            jadwal=jadwal,
+            status='AKTIF',
+            kursi__in=daftar_kursi
+        ).exists()
+
+        if kursi_sudah_dipesan:
+            raise ValueError("Salah satu kursi sudah dipesan untuk jadwal ini")
 
         aturan_harga = TiketService.pilih_jenis_harga(jenis_tiket)
         total = aturan_harga.hitung(jadwal, jumlah_kursi)
@@ -65,8 +76,7 @@ class TiketService:
         tiket.simpan_total(total)
         tiket.save()
 
-        for kursi in daftar_kursi:
-            kursi.pilih_kursi()
-            tiket.kursi.add(kursi)
+
+        tiket.kursi.set(daftar_kursi)
 
         return tiket
