@@ -1,27 +1,62 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Detail Tiket</title>
+
+    <link rel="stylesheet" href="{% static 'movie/css/booking.css' %}">
 </head>
+
 <body>
-    <h1>Tiket Berhasil Dibuat</h1>
 
-    <p>Kode Booking: {{ tiket.kode_booking }}</p>
-    <p>Nama Pemesan: {{ tiket.nama_pemesan }}</p>
-    <p>Film: {{ tiket.jadwal.film.judul }}</p>
-    <p>Studio: {{ tiket.jadwal.studio }}</p>
-    <p>Tanggal: {{ tiket.jadwal.tanggal }}</p>
-    <p>Jam: {{ tiket.jadwal.jam }}</p>
-    <p>Jenis Tiket: {{ tiket.jenis_tiket }}</p>
-    <p>Jumlah Kursi: {{ tiket.jumlah_kursi }}</p>
-    <p>Total Harga: Rp{{ tiket.total_harga }}</p>
-    <p>Status: {{ tiket.status }}</p>
+    <div class="container">
 
-    <h3>Kursi:</h3>
-    {% for kursi in tiket.kursi.all %}
-        <p>{{ kursi.nomor_kursi }}</p>
-    {% endfor %}
+        <h1>Tiket Berhasil Dibuat</h1>
 
-    <a href="{% url 'movie:daftar_film' %}">Kembali ke daftar film</a>
+        <div class="ticket-box">
+
+            <p><strong>Kode Booking:</strong> {{ tiket.kode_booking }}</p>
+
+            <p><strong>Nama Pemesan:</strong> {{ tiket.nama_pemesan }}</p>
+
+            <p><strong>Film:</strong> {{ tiket.jadwal.film.judul }}</p>
+
+            <p><strong>Studio:</strong> {{ tiket.jadwal.studio }}</p>
+
+            <p><strong>Tanggal:</strong> {{ tiket.jadwal.tanggal }}</p>
+
+            <p><strong>Jam:</strong> {{ tiket.jadwal.jam }}</p>
+
+            <p><strong>Jenis Tiket:</strong> {{ tiket.jenis_tiket }}</p>
+
+            <p><strong>Jumlah Kursi:</strong> {{ tiket.jumlah_kursi }}</p>
+
+            <p><strong>Total Harga:</strong> Rp{{ tiket.total_harga }}</p>
+
+            <p><strong>Status:</strong> {{ tiket.status }}</p>
+
+            <h3>Kursi Dipilih:</h3>
+
+            <div class="kursi-container">
+
+                {% for kursi in tiket.kursi.all %}
+                    <div class="kursi">
+                        {{ kursi.nomor_kursi }}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <a href="{% url 'movie:daftar_film' %}" class="btn-kembali">
+                Kembali ke Daftar Film
+            </a>
+
+        </div>
+
+    </div>
+
 </body>
+
 </html>

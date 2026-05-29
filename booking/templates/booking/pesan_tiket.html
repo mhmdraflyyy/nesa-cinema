@@ -1,48 +1,130 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Pesan Tiket</title>
+
+    <link rel="stylesheet" href="{% static 'movie/css/booking.css' %}">
 </head>
+
 <body>
-    <h1>Pesan Tiket</h1>
 
-    <h2>{{ jadwal.film.judul }}</h2>
-    <p>Studio: {{ jadwal.studio }}</p>
-    <p>Tanggal: {{ jadwal.tanggal }}</p>
-    <p>Jam: {{ jadwal.jam }}</p>
-    <p>Harga dasar: Rp{{ jadwal.harga_dasar }}</p>
+    <div class="container">
 
-    {% if error %}
-        <p style="color:red;">{{ error }}</p>
-    {% endif %}
+        <h1>Pesan Tiket</h1>
 
-    <form method="POST">
-        {% csrf_token %}
+        <div class="ticket-box">
 
-        <label>Nama Pemesan:</label><br>
-        <input type="text" name="nama_pemesan" required><br><br>
+            <h2>{{ jadwal.film.judul }}</h2>
 
-        <label>Jenis Tiket:</label><br>
-        <select name="jenis_tiket">
-            <option value="reguler">Reguler</option>
-            <option value="pelajar">Pelajar</option>
-            <option value="weekend">Weekend</option>
-        </select><br><br>
+            <p><strong>Studio:</strong> {{ jadwal.studio }}</p>
 
-        <label>Pilih Kursi:</label><br>
-        {% for kursi in daftar_kursi %}
-            <input type="checkbox" name="kursi" value="{{ kursi.id }}">
-            {{ kursi.nomor_kursi }}
-            <br>
-        {% empty %}
-            <p>Tidak ada kursi tersedia.</p>
-        {% endfor %}
+            <p><strong>Tanggal:</strong> {{ jadwal.tanggal }}</p>
 
-        <br>
-        <button type="submit">Pesan Sekarang</button>
-    </form>
+            <p><strong>Jam:</strong> {{ jadwal.jam }}</p>
 
-    <br>
-    <a href="{% url 'movie:detail_film' jadwal.film.id %}">Kembali</a>
+            <p><strong>Harga Dasar:</strong> Rp{{ jadwal.harga_dasar }}</p>
+
+            {% if error %}
+                <p style="color:red;">{{ error }}</p>
+            {% endif %}
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <label>Nama Pemesan</label>
+
+                <input type="text" name="nama_pemesan" required>
+
+                <label>Jenis Tiket</label>
+
+                <select name="jenis_tiket">
+                    <option value="reguler">Reguler</option>
+                    <option value="pelajar">Pelajar</option>
+                    <option value="weekend">Weekend</option>
+                </select>
+
+                <h3>Pilih Kursi</h3>
+
+           <div style="
+                width:90%;
+                height:28px;
+                margin:auto;
+                background:linear-gradient(to bottom, #ffffff, #dcdcdc);
+                border-radius:120% 120% 50% 50%;
+                box-shadow:0 0 25px rgba(255,255,255,0.8);
+                margin-top:30px;
+                margin-bottom:45px;
+                text-align:center;
+                color:black;
+                font-size:13px;
+                font-weight:bold;
+                line-height:28px;
+                letter-spacing:5px;
+                transform:perspective(100px) rotateX(8deg);
+            ">
+                LAYAR
+            </div>
+                <div class="cinema-layout">
+
+                    {% for row in rows %}
+
+                    <div class="seat-row">
+
+                        <!-- kiri -->
+                        {% for col in left_cols %}
+
+                        <label class="kursi">
+
+                            <input type="checkbox"
+                                name="kursi"
+                                value="{{ row }}{{ col }}">
+
+                            <span>{{ row }}{{ col }}</span>
+
+                        </label>
+
+                        {% endfor %}
+
+                        <!-- gang -->
+                        <div class="aisle"></div>
+
+                        <!-- kanan -->
+                        {% for col in right_cols %}
+
+                        <label class="kursi">
+
+                            <input type="checkbox"
+                                name="kursi"
+                                value="{{ row }}{{ col }}">
+
+                            <span>{{ row }}{{ col }}</span>
+
+                        </label>
+
+                        {% endfor %}
+                    </div>
+
+                        {% endfor %}
+
+                </div>
+                <button type="submit">
+                    Pesan Sekarang
+                </button>
+
+            </form>
+
+            <a href="{% url 'movie:detail_film' jadwal.film.id %}" class="btn-kembali">
+                Kembali
+            </a>
+
+        </div>
+
+    </div>
+
 </body>
+
 </html>
