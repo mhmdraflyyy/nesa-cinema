@@ -1,40 +1,270 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Login NESA Cinema</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - NESA Cinema</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            background:#020B2D;
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            overflow:hidden;
+        }
+
+        /* Background Glow */
+
+        .circle1{
+            position:absolute;
+            width:400px;
+            height:400px;
+            background:#f5bd42;
+            border-radius:50%;
+            filter:blur(180px);
+            top:-100px;
+            left:-100px;
+            opacity:.15;
+        }
+
+        .circle2{
+            position:absolute;
+            width:400px;
+            height:400px;
+            background:#0e4eff;
+            border-radius:50%;
+            filter:blur(180px);
+            bottom:-150px;
+            right:-100px;
+            opacity:.2;
+        }
+
+        .login-container{
+            position:relative;
+            width:900px;
+            max-width:90%;
+            display:flex;
+            border-radius:30px;
+            overflow:hidden;
+
+            background:rgba(255,255,255,0.05);
+
+            backdrop-filter:blur(15px);
+
+            box-shadow:
+            0 8px 40px rgba(0,0,0,.4);
+        }
+
+        .left{
+            flex:1;
+            padding:60px;
+            background:linear-gradient(
+                135deg,
+                #0E1B38,
+                #132A57
+            );
+            color:white;
+        }
+
+        .logo{
+            color:#F5BD42;
+            font-size:42px;
+            font-weight:800;
+            letter-spacing:2px;
+        }
+
+        .logo span{
+            display:block;
+            color:white;
+            font-size:18px;
+            letter-spacing:6px;
+        }
+
+        .left h1{
+            margin-top:80px;
+            font-size:48px;
+            line-height:1.2;
+        }
+
+        .left p{
+            margin-top:20px;
+            color:#c9d0e4;
+            line-height:1.8;
+        }
+
+        .right{
+            flex:1;
+            background:#091530;
+            padding:60px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+        }
+
+        .right h2{
+            color:white;
+            margin-bottom:30px;
+            font-size:32px;
+        }
+
+        .input-group{
+            margin-bottom:20px;
+        }
+
+        .input-group label{
+            color:#bfc7dd;
+            display:block;
+            margin-bottom:8px;
+        }
+
+        .input-group input{
+            width:100%;
+            padding:15px;
+            border:none;
+            outline:none;
+
+            border-radius:15px;
+
+            background:#0E1B38;
+
+            color:white;
+        }
+
+        .input-group input:focus{
+            border:2px solid #F5BD42;
+        }
+
+        .btn-login{
+            width:100%;
+            padding:15px;
+
+            border:none;
+            border-radius:15px;
+
+            background:#F5BD42;
+
+            color:black;
+            font-size:16px;
+            font-weight:700;
+
+            cursor:pointer;
+
+            transition:.3s;
+        }
+
+        .btn-login:hover{
+            transform:translateY(-2px);
+        }
+
+        .error{
+            margin-bottom:15px;
+            color:#ff6b6b;
+            text-align:center;
+        }
+
+        .footer{
+            margin-top:25px;
+            text-align:center;
+            color:#8e98b3;
+        }
+
+        @media(max-width:768px){
+
+            .login-container{
+                flex-direction:column;
+            }
+
+            .left{
+                display:none;
+            }
+
+        }
+
+    </style>
 </head>
+
 <body>
 
-<h2>Login</h2>
+<div class="circle1"></div>
+<div class="circle2"></div>
 
-{% if error %}
-<p>{{ error }}</p>
-{% endif %}
+<div class="login-container">
 
-<form method="POST">
-    {% csrf_token %}
+    <div class="left">
 
-    <input
-        type="text"
-        name="username"
-        placeholder="Username"
-        required>
+        <div class="logo">
+            NESA
+            <span>CINEMA</span>
+        </div>
 
-    <br><br>
+        <h1>
+            Selamat Datang di
+            NESA Cinema
+        </h1>
 
-    <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        required>
+        <p>
+            Temukan film favoritmu, lihat jadwal tayang,
+            dan nikmati pengalaman pemesanan tiket
+            bioskop yang cepat dan mudah.
+        </p>
 
-    <br><br>
+    </div>
 
-    <button type="submit">
-        Login
-    </button>
+    <div class="right">
 
-</form>
+        <h2>Login Account</h2>
+
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="input-group">
+                <label>Username</label>
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Masukkan username"
+                    required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Masukkan password"
+                    required>
+            </div>
+
+            <button type="submit" class="btn-login">
+                Masuk ke Dashboard
+            </button>
+
+        </form>
+
+        <div class="footer">
+            © 2026 NESA Cinema
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>
