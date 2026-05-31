@@ -6,16 +6,16 @@ from django.conf.urls.static import static
 
 
 def home(request):
-    return redirect('movie:daftar_film')
+    return redirect('login')
 
 
 urlpatterns = [
     path('', home, name='home'),
-    path('admin/', admin.site.urls),
 
+    path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
     path('movie/', include('movie.urls')),
     path('booking/', include('booking.urls')),
-    path('accounts/', include('accounts.urls')),
     path('payment/', include('payment.urls')),
 ]
 
