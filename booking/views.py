@@ -71,8 +71,9 @@ def pesan_tiket(request, jadwal_id):
                 jenis_tiket=jenis_tiket
             )
 
+
             return redirect(
-                'booking:detail_tiket',
+                'payment:index_payment', 
                 tiket_id=tiket.id
             )
 

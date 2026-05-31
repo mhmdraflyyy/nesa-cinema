@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Pembayaran Tiket - NESA Cinema</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #020617, #0f172a);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            width: 100%;
+            padding: 22px 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(2, 6, 23, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            color: #fbbf24;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .logo span {
+            display: block;
+            color: #ffffff;
+            font-size: 14px;
+            letter-spacing: 4px;
+            margin-top: 6px;
+        }
+
+        .menu a {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 15px;
+        }
+
+        .menu a:hover,
+        .menu .active {
+            color: #f5b942;
+        }
+
+        .payment-container {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 35px;
+            background-color: #0f172a;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+        }
+
+        .payment-title {
+            color: #f5b942;
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .ticket-summary {
+            background-color: rgba(2, 6, 23, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #f5b942;
+        }
+
+        .ticket-summary p {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #cbd5e1;
+        }
+
+        .ticket-summary b {
+            color: white;
+        }
+
+        .total-price {
+            font-size: 20px !important;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .total-price b {
+            color: #f5b942 !important;
+        }
+
+        /* FORM STYLE */
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .payment-form label {
+            font-weight: bold;
+            color: #cbd5e1;
+            font-size: 15px;
+        }
+
+        .payment-form select {
+            padding: 14px;
+            border-radius: 12px;
+            background-color: #020617;
+            color: white;
+            border: 1px solid #334155;
+            font-size: 15px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .payment-form select:focus {
+            border-color: #f5b942;
+        }
+
+        .btn-pay {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f5b942;
+            color: #111827;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-pay:hover {
+            background-color: #ffd166;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            NESA
+            <span>CINEMA</span>
+        </div>
+        <div class="menu">
+            <a href="#">Beranda</a>
+            <a href="#">Film</a>
+            <a href="#">Tentang Kami</a>
+        </div>
+    </div>
+
+    <div class="payment-container">
+        <h2 class="payment-title">Selesaikan Pembayaran</h2>
+        
+        <div class="ticket-summary">
+            <p>Kode Booking: <b>{{ tiket.kode_booking }}</b></p>
+            <p>Nama Pemesan: <b>{{ tiket.nama_pemesan }}</b></p>
+            <p class="total-price">Total Tagihan: <b>Rp {{ tiket.total_harga }}</b></p> 
+        </div>
+
+        <form id="formPembayaran" method="POST" class="payment-form">
+            {% csrf_token %}
+            
+            <label for="payment_method">Pilih Metode Pembayaran</label>
+            <select name="payment_method" id="payment_method" required>
+                <option value="" disabled selected>-- Klik untuk memilih --</option>
+                <option value="CREDIT_CARD">Credit Card</option>
+                <option value="E_WALLET">E-Wallet (OVO, GoPay, Dana)</option>
+                <option value="BANK_TRANSFER">Bank Transfer (Virtual Account)</option>
+            </select>
+            
+            <button type="submit" class="btn-pay">Bayar Sekarang</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('formPembayaran').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+
+            Swal.fire({
+                title: 'Pembayaran Berhasil!',
+                text: 'Tiket Anda sedang disiapkan...',
+                icon: 'success',
+                background: '#0f172a',
+                color: '#ffffff',
+                confirmButtonColor: '#f5b942',
+                confirmButtonText: 'Lihat Tiket'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

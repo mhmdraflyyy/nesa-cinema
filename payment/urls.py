@@ -4,5 +4,5 @@ from . import views
 app_name = 'payment'
 
 urlpatterns = [
-    path('', views.index_payment, name='index_payment'),
+    path('<int:tiket_id>/', views.index_payment, name='index_payment'),
 ]
