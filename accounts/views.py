@@ -52,3 +52,29 @@ def logout_view(request):
     request.session.flush()
 
     return redirect('login')
+
+def register_view(request):
+
+    if request.method == 'POST':
+
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if Account.objects.filter(username=username).exists():
+
+            return render(
+                request,
+                'accounts/register.html',
+                {
+                    'error': 'Username sudah digunakan'
+                }
+            )
+
+        Account.objects.create(
+            username=username,
+            password=password
+        )
+
+        return redirect('login')
+
+    return render(request, 'accounts/register.html')

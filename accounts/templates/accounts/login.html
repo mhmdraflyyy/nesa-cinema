@@ -190,6 +190,22 @@
 
         }
 
+        .register-link{
+            margin-top:20px;
+            text-align:center;
+            color:#bfc7dd;
+        }
+
+        .register-link a{
+            color:#F5BD42;
+            text-decoration:none;
+            font-weight:600;
+        }
+
+        .register-link a:hover{
+            text-decoration:underline;
+        }
+
     </style>
 </head>
 
@@ -255,6 +271,17 @@
             <button type="submit" class="btn-login">
                 Masuk ke Dashboard
             </button>
+
+            <button type="submit" class="btn-login">
+                Masuk ke Dashboard
+            </button>
+
+            <div class="register-link">
+                Belum punya akun?
+            <a href="{% url 'register' %}">
+                Daftar
+            </a>
+            </div>
 
         </form>
 
