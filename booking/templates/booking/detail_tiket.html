@@ -6,52 +6,354 @@
 <head>
     <title>Detail Tiket</title>
 
-    <link rel="stylesheet" href="{% static 'movie/css/booking.css' %}">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #071126;
+            color: white;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .title {
+            text-align: center;
+            color: #ffc107;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .ticket-card {
+            background: #111f45;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .ticket-header {
+            background: linear-gradient(135deg, #ffc107, #ffb000);
+            color: #071126;
+            padding: 25px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ticket-header h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .booking-code {
+            background: #071126;
+            color: #ffc107;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .ticket-body {
+            padding: 35px;
+        }
+
+        .movie-title {
+            font-size: 26px;
+            margin: 0 0 25px 0;
+            color: #ffffff;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            background: #17295a;
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .info-label {
+            color: #aebbe6;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .status-aktif {
+            display: inline-block;
+            background: #22c55e;
+            color: white;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .status-batal {
+            display: inline-block;
+            background: #ef4444;
+            color: white;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: #ffc107;
+            font-size: 22px;
+        }
+
+        .seat-list {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .seat-chip {
+            width: 58px;
+            height: 48px;
+            background: #ffc107;
+            color: #071126;
+            border-radius: 12px 12px 18px 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            box-shadow: 0 5px 0 #c98f00;
+        }
+
+        .total-box {
+            background: #071126;
+            border: 2px dashed #ffc107;
+            border-radius: 16px;
+            padding: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+            margin-bottom: 30px;
+        }
+
+        .total-label {
+            font-size: 18px;
+            color: #dbe4ff;
+        }
+
+        .total-price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffc107;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 16px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            min-width: 230px;
+            padding: 14px 22px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: #ffc107;
+            color: #071126;
+        }
+
+        .btn-primary:hover {
+            background: #ffcf33;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #17295a;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: #1e3470;
+            transform: translateY(-2px);
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .button-group {
+                display: none;
+            }
+
+            .ticket-card {
+                box-shadow: none;
+            }
+        }
+
+        @media screen and (max-width: 700px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ticket-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .total-box {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="container">
 
-        <h1>Tiket Berhasil Dibuat</h1>
+        <h1 class="title">Tiket Berhasil Dibuat</h1>
 
-        <div class="ticket-box">
+        <div class="ticket-card">
 
-            <p><strong>Kode Booking:</strong> {{ tiket.kode_booking }}</p>
+            <div class="ticket-header">
+                <h2>NESA Cinema</h2>
 
-            <p><strong>Nama Pemesan:</strong> {{ tiket.nama_pemesan }}</p>
-
-            <p><strong>Film:</strong> {{ tiket.jadwal.film.judul }}</p>
-
-            <p><strong>Studio:</strong> {{ tiket.jadwal.studio }}</p>
-
-            <p><strong>Tanggal:</strong> {{ tiket.jadwal.tanggal }}</p>
-
-            <p><strong>Jam:</strong> {{ tiket.jadwal.jam }}</p>
-
-            <p><strong>Jenis Tiket:</strong> {{ tiket.jenis_tiket }}</p>
-
-            <p><strong>Jumlah Kursi:</strong> {{ tiket.jumlah_kursi }}</p>
-
-            <p><strong>Total Harga:</strong> Rp{{ tiket.total_harga }}</p>
-
-            <p><strong>Status:</strong> {{ tiket.status }}</p>
-
-            <h3>Kursi Dipilih:</h3>
-
-            <div class="kursi-container">
-
-                {% for kursi in tiket.kursi.all %}
-                    <div class="kursi">
-                        {{ kursi.nomor_kursi }}
-                    </div>
-                {% endfor %}
-
+                <div class="booking-code">
+                    {{ tiket.kode_booking }}
+                </div>
             </div>
 
-            <a href="{% url 'movie:daftar_film' %}" class="btn-kembali">
-                Kembali ke Daftar Film
-            </a>
+            <div class="ticket-body">
+
+                <h2 class="movie-title">
+                    {{ tiket.jadwal.film.judul }}
+                </h2>
+
+                <div class="info-grid">
+
+                    <div class="info-box">
+                        <div class="info-label">Nama Pemesan</div>
+                        <div class="info-value">{{ tiket.nama_pemesan }}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Studio</div>
+                        <div class="info-value">{{ tiket.jadwal.studio }}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Tanggal</div>
+                        <div class="info-value">{{ tiket.jadwal.tanggal }}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Jam</div>
+                        <div class="info-value">{{ tiket.jadwal.jam }}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Jenis Tiket</div>
+                        <div class="info-value">{{ tiket.jenis_tiket }}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Jumlah Kursi</div>
+                        <div class="info-value">{{ tiket.jumlah_kursi }}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Status Tiket</div>
+                        <div class="info-value">
+                            {% if tiket.status == 'AKTIF' %}
+                                <span class="status-aktif">{{ tiket.status }}</span>
+                            {% else %}
+                                <span class="status-batal">{{ tiket.status }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Kode Booking</div>
+                        <div class="info-value">{{ tiket.kode_booking }}</div>
+                    </div>
+
+                </div>
+
+                <h3 class="section-title">Kursi Dipilih</h3>
+
+                <div class="seat-list">
+                    {% for kursi in tiket.kursi.all %}
+                        <div class="seat-chip">
+                            {{ kursi.nomor_kursi }}
+                        </div>
+                    {% empty %}
+                        <p>Belum ada kursi dipilih.</p>
+                    {% endfor %}
+                </div>
+
+                <div class="total-box">
+                    <div class="total-label">Total Harga</div>
+                    <div class="total-price">Rp{{ tiket.total_harga }}</div>
+                </div>
+
+                <div class="button-group">
+                    <a href="{% url 'movie:daftar_film' %}" class="btn btn-secondary">
+                        Kembali ke Daftar Film
+                    </a>
+
+                    <a href="{% url 'payment:index_payment' %}" class="btn btn-primary">
+                        Lanjut ke Payment
+                    </a>
+                </div>
+
+            </div>
 
         </div>
 

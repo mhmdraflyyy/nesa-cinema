@@ -18,7 +18,7 @@ def login_view(request):
             request.session['user_id'] = user.id
             request.session['username'] = user.username
 
-            return redirect('dashboard')
+            return redirect('movie:daftar_film')
 
         except Account.DoesNotExist:
 
