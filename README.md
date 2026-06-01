@@ -191,7 +191,7 @@ Encapsulation juga diterapkan pada proses pembuatan tiket melalui `TiketService`
 
 ### 1. Halaman Login
 
-Tambahkan screenshot halaman login di bagian ini
+
 
 
 ![Halaman Login](screenshots/login.png)
@@ -199,7 +199,7 @@ Tambahkan screenshot halaman login di bagian ini
 
 ### 2. Halaman Daftar Film
 
-Tambahkan screenshot halaman daftar film di bagian ini.
+
 
 
 ![Daftar Film](screenshots/daftar-film.png)
@@ -207,7 +207,7 @@ Tambahkan screenshot halaman daftar film di bagian ini.
 
 ### 3. Halaman Detail Film
 
-Tambahkan screenshot halaman detail film di bagian ini.
+
 
 
 ![Detail Film](screenshots/detail-film.png)
@@ -215,7 +215,7 @@ Tambahkan screenshot halaman detail film di bagian ini.
 
 ### 4. Halaman Booking Tiket
 
-Tambahkan screenshot halaman booking tiket di bagian ini.
+
 
 
 ![Booking Tiket](screenshots/booking-tiket.png)
@@ -223,7 +223,7 @@ Tambahkan screenshot halaman booking tiket di bagian ini.
 
 ### 5. Halaman Detail Tiket
 
-Tambahkan screenshot halaman detail tiket di bagian ini.
+
 
 
 ![Detail Tiket](screenshots/detail-tiket.png)
