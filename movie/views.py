@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models import Q
 from .models import Film, JadwalTayang
 
 
@@ -9,19 +8,11 @@ def daftar_film(request):
         return redirect('login')
 
     genre_aktif = request.GET.get('genre', '').strip()
-    keyword = request.GET.get('q', '').strip()
 
     daftar_film = Film.objects.all()
 
     if genre_aktif:
         daftar_film = daftar_film.filter(genre__icontains=genre_aktif)
-
-    if keyword:
-        daftar_film = daftar_film.filter(
-            Q(judul__icontains=keyword) |
-            Q(genre__icontains=keyword) |
-            Q(sinopsis__icontains=keyword)
-        )
 
     daftar_genre = Film.objects.exclude(
         genre__isnull=True
@@ -35,7 +26,6 @@ def daftar_film(request):
         'daftar_film': daftar_film,
         'daftar_genre': daftar_genre,
         'genre_aktif': genre_aktif,
-        'keyword': keyword,
     })
 
 
