@@ -8,10 +8,10 @@ Project ini juga dibuat sebagai tugas kelompok dengan menerapkan konsep **Object
 
 ## Anggota Kelompok
 
-1. Muhammad Rafli - 25051204125
-2. Ezar Valeno Oktafalah - 25051204062
-3. Fath Rastra Sewa Kottama - 25051204
-4. M Ragil Surya Saputra - 25051204
+1. Fath Rastra Sewa Kottama (25051204060) 
+2. Ezar Valeno Oktafalah (25051204062) 
+3. Muhammad Rafli (25051204125) 
+4. M. Ragil Surya Saputra (25051204127) 
 
 ## Fitur Utama
 
@@ -111,8 +111,8 @@ http://127.0.0.1:8000/
 5. Pengguna melihat detail film dan jadwal tayang.
 6. Pengguna memilih jadwal dan melakukan booking tiket.
 7. Pengguna memilih kursi yang tersedia.
-8. Sistem menampilkan detail tiket.
-9. Pengguna dapat melanjutkan ke menu payment.
+8. Pengguna dapat melanjutkan ke menu payment.
+9. Sistem menampilkan detail tiket.
 
 ## Penjelasan Implementasi OOP
 
@@ -191,7 +191,7 @@ Encapsulation juga diterapkan pada proses pembuatan tiket melalui `TiketService`
 
 ### 1. Halaman Login
 
-Tambahkan screenshot halaman login di bagian ini.
+Tambahkan screenshot halaman login di bagian ini
 
 ```markdown
 ![Halaman Login](screenshots/login.png)
