@@ -193,49 +193,49 @@ Encapsulation juga diterapkan pada proses pembuatan tiket melalui `TiketService`
 
 Tambahkan screenshot halaman login di bagian ini
 
-```markdown
+
 ![Halaman Login](screenshots/login.png)
-```
+
 
 ### 2. Halaman Daftar Film
 
 Tambahkan screenshot halaman daftar film di bagian ini.
 
-```markdown
+
 ![Daftar Film](screenshots/daftar-film.png)
-```
+
 
 ### 3. Halaman Detail Film
 
 Tambahkan screenshot halaman detail film di bagian ini.
 
-```markdown
+
 ![Detail Film](screenshots/detail-film.png)
-```
+
 
 ### 4. Halaman Booking Tiket
 
 Tambahkan screenshot halaman booking tiket di bagian ini.
 
-```markdown
+
 ![Booking Tiket](screenshots/booking-tiket.png)
-```
+
 
 ### 5. Halaman Detail Tiket
 
 Tambahkan screenshot halaman detail tiket di bagian ini.
 
-```markdown
+
 ![Detail Tiket](screenshots/detail-tiket.png)
-```
+
 
 ### 6. Halaman Payment
 
 Tambahkan screenshot halaman payment di bagian ini.
 
-```markdown
+
 ![Payment](screenshots/payment.png)
-```
+
 
 ## Tolls yang Digunakan
 
