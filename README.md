@@ -233,7 +233,7 @@ Encapsulation juga diterapkan pada proses pembuatan tiket melalui `TiketService`
 
 ### 6. Halaman Payment
 
-Tambahkan screenshot halaman payment di bagian ini.
+
 
 
 ![Payment](screenshots/payment.png)
