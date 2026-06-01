@@ -35,11 +35,13 @@ Pengguna dapat melakukan pemesanan tiket berdasarkan jadwal film yang dipilih. P
 
 Pengguna dapat memilih kursi yang tersedia. Kursi yang sudah dipesan akan berubah status sehingga tidak dapat dipilih kembali oleh pengguna lain.
 
-### 6. Detail Tiket
+### 6. Payment
+
+Setelah tiket berhasil dibuat, pengguna dapat melanjutkan ke menu pembayaran. Bagian payment digunakan untuk proses pembayaran tiket yang sudah dipesan.
+
+### 7. Detail Tiket
 
 Setelah pemesanan berhasil, sistem akan menampilkan detail tiket yang berisi kode booking, nama pemesan, film, studio, tanggal, jam, jenis tiket, jumlah kursi, total harga, status tiket, dan kursi yang dipilih.
-
-### 7. Payment
 
 Setelah tiket berhasil dibuat, pengguna dapat melanjutkan ke menu pembayaran. Bagian payment digunakan untuk proses pembayaran tiket yang sudah dipesan.
 
