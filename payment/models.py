@@ -14,7 +14,7 @@ class Payment(models.Model):
         ('BANK_TRANSFER', 'Bank Transfer'),
     )
 
-    # 2. Ubah relasi dari Booking menjadi Tiket
+    
     tiket = models.ForeignKey(Tiket, on_delete=models.CASCADE, related_name='payments', help_text="Pesanan tiket yang dibayar")
     
     amount = models.DecimalField(max_digits=10, decimal_places=2, help_text="Total harga tiket")
@@ -23,5 +23,5 @@ class Payment(models.Model):
     payment_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        # 3. Sesuaikan dengan field kode_booking yang ada di model Tiket kamu
+        
         return f"Payment #{self.id} - Tiket {self.tiket.kode_booking} - Rp {self.amount} ({self.status})"
